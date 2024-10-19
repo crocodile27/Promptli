@@ -19,7 +19,7 @@ function openDemoTab() {
 }
 
 chrome.webNavigation.onDOMContentLoaded.addListener(async ({ tabId, url }) => {
-  if (url !== 'https://example.com/#inject-programmatic') return;
+  if (url !== 'https://chatgpt.com/*') return;
   const { options } = await chrome.storage.local.get('options');
   chrome.scripting.executeScript({
     target: { tabId },
@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener(async ({ name, options }) => {
   if (name === 'inject-programmatic') {
     await chrome.storage.local.set({ options });
     await chrome.tabs.create({
-      url: 'https://example.com/#inject-programmatic'
+      url: 'https://chatgpt.com/*'
     });
   }
 });
