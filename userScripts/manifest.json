@@ -15,6 +15,12 @@
     }
   ],
   "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["buttons.html"],
+      "matches": ["https://chatgpt.com/*"]
+    }
+  ],
   "action": {
     "default_icon": {
       "16": "icons/icons.png",
