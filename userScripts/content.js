@@ -20,7 +20,10 @@ function initChatInputDetection() {
     
         if (textArea) {
             console.log('Text area detected!');
-        
+            
+            // Inject the buttons after text input is detected
+            injectButtons(); 
+            
             // Use keydown event as a fallback
             textArea.addEventListener('keydown', function(event) {
                 console.log('Keydown event fired');
@@ -99,4 +102,58 @@ function getContext() {
     });
     
     return recentContext;
+}
+
+// Inject buttons only after text input is detected
+function injectButtons() {
+    // Select the target element where you want to inject the buttons above
+    const targetElement = document.querySelector('.md\\:pt-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.w-full');
+
+    // Check if the target element exists
+    if (targetElement) {
+        console.log('Target element found, injecting buttons.');
+
+        // Create a container for the buttons
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.justifyContent = 'center';
+        buttonContainer.style.gap = '10px';  // Add some space between the buttons
+        buttonContainer.style.marginBottom = '10px';  // Add some margin below the buttons
+        
+        // Create button 1
+        const button1 = document.createElement('button');
+        button1.textContent = 'Button 1';
+        button1.style.padding = '10px 20px';
+        button1.style.backgroundColor = '#007bff';
+        button1.style.color = 'white';
+        button1.style.border = 'none';
+        button1.style.borderRadius = '5px';
+        button1.style.cursor = 'pointer';
+        button1.addEventListener('click', () => {
+            console.log('Button 1 clicked');
+        });
+
+        // Create button 2
+        const button2 = document.createElement('button');
+        button2.textContent = 'Button 2';
+        button2.style.padding = '10px 20px';
+        button2.style.backgroundColor = '#28a745';
+        button2.style.color = 'white';
+        button2.style.border = 'none';
+        button2.style.borderRadius = '5px';
+        button2.style.cursor = 'pointer';
+        button2.addEventListener('click', () => {
+            console.log('Button 2 clicked');
+        });
+
+        // Append buttons to the container
+        buttonContainer.appendChild(button1);
+        buttonContainer.appendChild(button2);
+
+        // Insert the button container above the target element
+        targetElement.parentNode.insertBefore(buttonContainer, targetElement);
+
+    } else {
+        console.log('Target element not found');
+    }
 }
