@@ -7,6 +7,6 @@
     "service_worker": "sw.js"
   },
   "permissions": ["scripting", "webNavigation", "storage"],
-  "host_permissions": ["https://example.com/*"],
+  "host_permissions": ["https://chatgpt.com/*"],
   "action": {}
 }
