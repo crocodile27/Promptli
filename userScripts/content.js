@@ -115,9 +115,18 @@ function injectButtons() {
   console.log("Attempting to inject buttons...");
 
   // Check if buttons are already injected to avoid duplicates
-  if (document.getElementById("my-extension-button-container")) {
-    console.log("Buttons already injected.");
-    return;
+  const buttonContainer = document.getElementById("my-extension-button-container");
+
+  // Track if the show button has been created
+  let showButtonExists = document.getElementById("show-button");
+
+  if (buttonContainer) {
+    console.log("Buttons already injected. Showing the button container.");
+    buttonContainer.style.display = "flex"; // Show the container if already injected
+    if (showButtonExists) {
+      showButtonExists.style.display = "none"; // Hide the show button if it exists
+    }
+    return; // Exit the function after showing
   }
 
   // Fetch the buttons.html file
