@@ -39,10 +39,10 @@ function initChatInputDetection() {
           } 
           console.log("User input after 2 seconds of inactivity:", userInput); // Log the input
           
-          handleUserInput(userInput);
           // Collect the context (previous responses)
           const context = getContext();
           console.log("User input with context:", { userInput, context });
+          callGeminiAPI(userInput);
 
           // Inject the buttons after text input is detected
           injectButtons();
@@ -254,23 +254,21 @@ function injectButtons() {
     });
 }
 
-// Example: Trigger the Gemini API call after detecting user input
-function handleUserInput(userInput) {
-  console.log("Sending message to background.js to call Gemini API with user input");
-
-  // Example API key (you should retrieve this securely from storage or user input)
-  const apiKey = manifest.apiKey;
-
-  // Send a message to background.js
-  chrome.runtime.sendMessage({
-    action: "callGeminiAPI",
-    apiKey: apiKey,  // Include API key in the message
-  }, (response) => {
-    if (response && response.success) {
-      console.log("Gemini API response received:", response.data);
-    } else {
-      console.error("Error from Gemini API:", response ? response.error : "No response");
+// Function to call your server's Gemini API proxy
+async function callGeminiAPI(promptText) {
+    try {
+      const response = await fetch("http://localhost:3000/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: promptText }),
+      });
+  
+      const data = await response.json();
+      console.log("Gemini API Response:", data.generatedText);
+    } catch (error) {
+      console.error("Error calling Gemini API:", error);
     }
-  });
-}
-
+  }
+  
