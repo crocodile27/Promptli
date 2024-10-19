@@ -23,9 +23,6 @@ function initChatInputDetection() {
     if (textArea) {
       console.log("Text area detected!");
 
-      // Inject the buttons after text input is detected
-      injectButtons();
-
       // Use keydown event as a fallback
       textArea.addEventListener("keydown", function (event) {
         console.log("Keydown event fired");
@@ -46,6 +43,9 @@ function initChatInputDetection() {
           // Collect the context (previous responses)
           const context = getContext();
           console.log("User input with context:", { userInput, context });
+
+          // Inject the buttons after text input is detected
+          injectButtons();
         }, typingInterval);
       });
 
