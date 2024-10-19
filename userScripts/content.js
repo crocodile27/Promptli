@@ -112,128 +112,138 @@ function getContext() {
  * Function to inject buttons by fetching buttons.html
  */
 function injectButtons() {
-    console.log("Attempting to inject buttons...");
-  
-    // Check if buttons are already injected to avoid duplicates
-    if (document.getElementById("my-extension-button-container")) {
-      console.log("Buttons already injected.");
-      return;
-    }
-  
-    // Fetch the buttons.html file
-    fetch(chrome.runtime.getURL("buttons.html"))
-      .then((response) => response.text())
-      .then((html) => {
-        // Create a temporary div to parse the fetched HTML
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = html;
-  
-        // Extract the button container from the fetched HTML
-        const buttonContainer = tempDiv.querySelector("#my-extension-button-container");
-        if (buttonContainer) {
-          // Select the target element where buttons should be injected above
-          const targetElement = document.querySelector(
-            ".md\\:pt-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.w-full"
-          );
-  
-          if (targetElement) {
-            console.log("Target element found, injecting buttons.");
-  
-            // Insert the button container above the target element
-            targetElement.parentNode.insertBefore(buttonContainer, targetElement);
-            console.log("Buttons injected successfully.");
-  
-            // Create show button
-            const showButton = document.createElement("button");
-            showButton.id = "show-button";
-            showButton.innerHTML = "↑";
-            showButton.style.position = "relative";
-            showButton.style.bottom = "10px";
-            showButton.style.left = "50%";
-            showButton.style.transform = "translateX(-50%)";
-            showButton.style.backgroundColor = "#e98f41";
-            showButton.style.border = "none";
-            showButton.style.fontSize = "16px";
-            showButton.style.color = "#166f40";
-            showButton.style.cursor = "pointer";
-            showButton.style.display = "none"; // Initially hidden
-            showButton.style.zIndex = "1001";
+  console.log("Attempting to inject buttons...");
 
-            // Make the button round
-            showButton.style.width = "30px";  // Set width
-            showButton.style.height = "30px"; // Set height to make it a circle
-            showButton.style.borderRadius = "50%"; // Fully round
-  
-            // Append to body
-            targetElement.parentNode.insertBefore(showButton, targetElement);
-            // document.body.appendChild(showButton);
-  
-            // Event listener for show button
-            showButton.addEventListener("click", () => {
-              console.log("Show button clicked. Displaying button container.");
-              buttonContainer.style.display = "flex"; // Show the container
-              showButton.style.display = "none"; // Hide the show button
-            });
-  
-            // Add event listener for the hide button
-            const hideButton = buttonContainer.querySelector("#hide-button");
-            if (hideButton) {
-              hideButton.addEventListener("click", () => {
-                console.log("Hide button clicked. Hiding button container and showing show button.");
-                buttonContainer.style.display = "none"; // Hide the container
-                showButton.style.display = "block"; // Show the show button
-              });
-            } else {
-              console.log("Hide button not found in buttons.html.");
-            }
-  
-            // Add event listeners for expand and collapse links
-            const expandLinks = buttonContainer.querySelectorAll(".expand-link");
-            const collapseLinks = buttonContainer.querySelectorAll(".collapse-link");
-  
-            expandLinks.forEach((link) => {
-              link.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default link behavior
-                const parentButton = link.closest(".extension-button");
-                const expandedContent = parentButton.querySelector(".expanded-content");
-                const collapseLink = expandedContent.querySelector(".collapse-link");
-                const buttonContent = parentButton.querySelector(".button-content");
-  
-                if (expandedContent && collapseLink) {
-                  console.log(`Expanding content for ${buttonContent.textContent.trim()}`);
-                  expandedContent.style.display = "block"; // Show expanded content
-                  link.style.display = "none"; // Hide "Read more..." link
-                } else {
-                  console.log("Expanded content or collapse link not found.");
-                }
-              });
-            });
-  
-            collapseLinks.forEach((link) => {
-              link.addEventListener("click", function (event) {
-                event.preventDefault(); // Prevent default link behavior
-                const parentContent = link.closest(".expanded-content");
-                const parentButton = link.closest(".extension-button");
-                const expandLink = parentButton.querySelector(".expand-link");
-  
-                if (parentContent && expandLink) {
-                  console.log(`Collapsing content for ${parentButton.querySelector(".button-content").textContent.trim()}`);
-                  parentContent.style.display = "none"; // Hide expanded content
-                  expandLink.style.display = "inline"; // Show "Read more..." link again
-                } else {
-                  console.log("Parent content or expand link not found.");
-                }
-              });
+  // Check if buttons are already injected to avoid duplicates
+  if (document.getElementById("my-extension-button-container")) {
+    console.log("Buttons already injected.");
+    return;
+  }
+
+  // Fetch the buttons.html file
+  fetch(chrome.runtime.getURL("buttons.html"))
+    .then((response) => response.text())
+    .then((html) => {
+      // Create a temporary div to parse the fetched HTML
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = html;
+
+      // Extract the button container from the fetched HTML
+      const buttonContainer = tempDiv.querySelector(
+        "#my-extension-button-container"
+      );
+      if (buttonContainer) {
+        // Select the target element where buttons should be injected above
+        const targetElement = document.querySelector(
+          ".md\\:pt-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.w-full"
+        );
+
+        if (targetElement) {
+          console.log("Target element found, injecting buttons.");
+
+          // Insert the button container above the target element
+          targetElement.parentNode.insertBefore(buttonContainer, targetElement);
+          console.log("Buttons injected successfully.");
+
+          // Create show button
+          const showButton = document.createElement("button");
+          showButton.id = "show-button";
+          showButton.innerHTML = "↑";
+          showButton.style.position = "relative";
+          showButton.style.bottom = "10px";
+          showButton.style.left = "50%";
+          showButton.style.transform = "translateX(-50%)";
+          showButton.style.backgroundColor = "#e98f41";
+          showButton.style.border = "none";
+          showButton.style.fontSize = "16px";
+          showButton.style.color = "#166f40";
+          showButton.style.cursor = "pointer";
+          showButton.style.display = "none"; // Initially hidden
+          showButton.style.zIndex = "1001";
+
+          // Make the button round
+          showButton.style.width = "30px"; // Set width
+          showButton.style.height = "30px"; // Set height to make it a circle
+          showButton.style.borderRadius = "50%"; // Fully round
+
+          // Append to body
+          targetElement.parentNode.insertBefore(showButton, targetElement);
+          // document.body.appendChild(showButton);
+
+          // Event listener for show button
+          showButton.addEventListener("click", () => {
+            console.log("Show button clicked. Displaying button container.");
+            buttonContainer.style.display = "flex"; // Show the container
+            showButton.style.display = "none"; // Hide the show button
+          });
+
+          // Add event listener for the hide button
+          const hideButton = buttonContainer.querySelector("#hide-button");
+          if (hideButton) {
+            hideButton.addEventListener("click", () => {
+              console.log(
+                "Hide button clicked. Hiding button container and showing show button."
+              );
+              buttonContainer.style.display = "none"; // Hide the container
+              showButton.style.display = "block"; // Show the show button
             });
           } else {
-            console.log("Target element for button injection not found.");
+            console.log("Hide button not found in buttons.html.");
           }
+
+          // Add event listeners for expand and collapse links
+          const expandLinks = buttonContainer.querySelectorAll(".expand-link");
+          const collapseLinks =
+            buttonContainer.querySelectorAll(".collapse-link");
+
+          expandLinks.forEach((link) => {
+            link.addEventListener("click", function (event) {
+              event.preventDefault(); // Prevent default link behavior
+              const parentButton = link.closest(".extension-button");
+              const expandedContent =
+                parentButton.querySelector(".expanded-content");
+              const buttonContent =
+                parentButton.querySelector(".button-content");
+
+              if (expandedContent) {
+                console.log(
+                  `Expanding content for ${buttonContent.textContent.trim()}`
+                );
+                expandedContent.style.display = "block"; // Show expanded content
+                buttonContent.style.display = "none"; // Hide the entire button-content including the "Read more..." link
+              } else {
+                console.log("Expanded content not found.");
+              }
+            });
+          });
+
+          collapseLinks.forEach((link) => {
+            link.addEventListener("click", function (event) {
+              event.preventDefault(); // Prevent default link behavior
+              const parentContent = link.closest(".expanded-content");
+              const parentButton = link.closest(".extension-button");
+              const buttonContent =
+                parentButton.querySelector(".button-content");
+
+              if (parentContent && buttonContent) {
+                console.log(
+                  `Collapsing content for ${buttonContent.textContent.trim()}`
+                );
+                parentContent.style.display = "none"; // Hide expanded content
+                buttonContent.style.display = "flex"; // Show the button-content back, including the "Read more..." link
+              } else {
+                console.log("Parent content or button-content not found.");
+              }
+            });
+          });
         } else {
-          console.log("Button container not found in fetched buttons.html.");
+          console.log("Target element for button injection not found.");
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching buttons.html:", error);
-      });
-  }
-  
+      } else {
+        console.log("Button container not found in fetched buttons.html.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching buttons.html:", error);
+    });
+}
