@@ -29,7 +29,8 @@ function initChatInputDetection() {
     if (chatGptTextArea || perplexityTextArea1 || perplexityTextArea2) {
       console.log("Text area detected!");
 
-      const textArea = chatGptTextArea || perplexityTextArea1 || perplexityTextArea2;
+      const textArea =
+        chatGptTextArea || perplexityTextArea1 || perplexityTextArea2;
 
       // Use keydown event as a fallback
       textArea.addEventListener("keydown", function (event) {
@@ -50,7 +51,7 @@ function initChatInputDetection() {
           // Collect the context (previous responses)
           const context = getContext();
           console.log("User input with context:", { userInput, context });
-          //   callGeminiAPI(userInput);
+          callGeminiAPI(userInput);
 
           // Inject the buttons after text input is detected
           injectButtons();
@@ -280,24 +281,130 @@ function injectButtons() {
 
 // Function to call your server's Gemini API proxy
 async function callGeminiAPI(promptText) {
+  try {
+    const response = await fetch("http://localhost:3000/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ promptText }),
+    });
 
+    // Log raw response as text
+    const data = await response.text();
+    console.log("Gemini API Response (raw):", data);
+
+    // Since the response is stringified JSON, we need to parse it twice
+    let parsedData;
     try {
-      const response = await fetch("http://localhost:3000/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ promptText }),
-      });
-  
-      const data = await response.json();
-      console.log("Gemini API Response:", data);
-    } catch (error) {
-      console.error("Error calling Gemini API:", error);
+      // First parse to get the string version of the JSON
+      const firstParse = JSON.parse(data);
+      console.log("First Parse (string):", firstParse);
+
+      // Second parse to get the actual array of objects
+      parsedData = JSON.parse(firstParse);
+    } catch (parseError) {
+      console.error("Error parsing JSON:", parseError);
+      return; // Stop if JSON parsing fails
     }
+
+    console.log("Gemini API Parsed Response:", parsedData);
+    console.log("Type of Parsed Data:", typeof parsedData);
+
+    // Check if parsedData is an array
+    if (Array.isArray(parsedData)) {
+      console.log("Parsed data is an array. Proceeding to inject prompts.");
+      injectPrompts(parsedData);
+    } else {
+      console.error(
+        "Parsed data is not an array. Type of parsed data:",
+        typeof parsedData
+      );
+      console.log("Parsed data content:", parsedData);
+    }
+  } catch (error) {
+    console.error("Error calling Gemini API:", error);
   }
-
-
-
+}
+function injectPrompts(prompts) {
+    const buttons = document.querySelectorAll(".extension-button");
   
-
+    // Loop over the buttons and inject the corresponding prompts
+    prompts.forEach((promptData, index) => {
+      if (buttons[index]) {
+        const button = buttons[index];
+        const buttonTextElement = button.querySelector(".button-content");
+        const contentElement = button.querySelector(".content");
+  
+        // Replace button text with the truncated prompt
+        buttonTextElement.innerHTML = `
+          <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+          ">
+            <span style="
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              flex-grow: 1;
+              padding-right: 10px;
+            ">${promptData.prompt}</span>
+            <a href="#" class="expand-link" style="
+              flex-shrink: 0;
+              white-space: nowrap;
+              color: #166f40;
+              text-decoration: underline;
+              font-weight: 300;
+            ">Read more...</a>
+          </div>
+        `;
+  
+        // Replace expanded content with the prompt text
+        contentElement.innerHTML = promptData.prompt;
+      }
+    });
+  
+    // Reattach event listeners for expand/collapse after content injection
+    attachExpandCollapseListeners();
+  }
+  
+  /**
+   * Function to attach event listeners for expanding and collapsing content.
+   */
+  function attachExpandCollapseListeners() {
+    // Attach 'Read more...' expand listener
+    const expandLinks = document.querySelectorAll(".expand-link");
+    expandLinks.forEach((link) => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default link behavior
+        const parentButton = link.closest(".extension-button");
+        const expandedContent = parentButton.querySelector(".expanded-content");
+        const buttonContent = parentButton.querySelector(".button-content");
+  
+        // Show expanded content and hide the truncated text
+        if (expandedContent) {
+          expandedContent.style.display = "block"; // Show expanded content
+          buttonContent.style.display = "none"; // Hide truncated content
+        }
+      });
+    });
+  
+    // Attach 'Read less...' collapse listener
+    const collapseLinks = document.querySelectorAll(".collapse-link");
+    collapseLinks.forEach((link) => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default link behavior
+        const parentContent = link.closest(".expanded-content");
+        const parentButton = link.closest(".extension-button");
+        const buttonContent = parentButton.querySelector(".button-content");
+  
+        // Hide expanded content and show the truncated text
+        if (parentContent && buttonContent) {
+          parentContent.style.display = "none"; // Hide expanded content
+          buttonContent.style.display = "flex"; // Show the truncated content back
+        }
+      });
+    });
+  }
