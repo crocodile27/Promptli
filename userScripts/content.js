@@ -268,13 +268,16 @@ async function callGeminiAPI(promptText) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: promptText }),
+        body: JSON.stringify({ promptText }),
       });
   
       const data = await response.json();
-      console.log("Gemini API Response:", data.generatedText);
+      console.log("Gemini API Response:", data);
     } catch (error) {
       console.error("Error calling Gemini API:", error);
     }
   }
+
+
+
   
