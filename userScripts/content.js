@@ -157,25 +157,19 @@ function injectButtons() {
           targetElement.parentNode.insertBefore(buttonContainer, targetElement);
           // console.log("Buttons injected successfully.");
 
-          // Create show button
-          const showButton = document.createElement("button");
+          // Create show button (replaced with an image)
+          const showButton = document.createElement("img");
           showButton.id = "show-button";
-          showButton.innerHTML = "↑";
+          showButton.src = chrome.runtime.getURL("./icons/upPersimmon.png"); // Replace with the path to your image
           showButton.style.position = "relative";
           showButton.style.bottom = "10px";
           showButton.style.left = "50%";
           showButton.style.transform = "translateX(-50%)";
-          showButton.style.backgroundColor = "#e98f41";
-          showButton.style.border = "none";
-          showButton.style.fontSize = "16px";
-          showButton.style.color = "#166f40";
+          showButton.style.width = "30px"; // Set width
+          showButton.style.height = "30px"; // Set height to make it a circle
           showButton.style.cursor = "pointer";
           showButton.style.display = "none"; // Initially hidden
           showButton.style.zIndex = "1001";
-
-          // Make the button round
-          showButton.style.width = "30px"; // Set width
-          showButton.style.height = "30px"; // Set height to make it a circle
           showButton.style.borderRadius = "50%"; // Fully round
 
           // Append to body
