@@ -9,16 +9,16 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chatgpt.com/*"],
+      "matches": ["https://chatgpt.com/*", "https://www.perplexity.ai/*"],
       "js": ["content.js"],
       "css": ["styles.css"]
     }
   ],
-  "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*", "https://*.googleapis.com/*"],
+  "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*", "https://*.googleapis.com/*", "https://www.perplexity.ai/*"],
   "web_accessible_resources": [
     {
-      "resources": ["buttons.html"],
-      "matches": ["https://chatgpt.com/*"]
+      "resources": ["buttons.html", "icons/upPersimmon.png"],
+      "matches": ["https://chatgpt.com/*", "https://www.perplexity.ai/*"]
     }
   ],
   "action": {
@@ -28,4 +28,5 @@
       "128": "icons/icons.png"
     }
   }
+  
 }
