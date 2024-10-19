@@ -7,7 +7,6 @@
   "background": {
     "service_worker": "background.js"
   },
-  "api_key": "AIzaSyCLabv_mI9j3c9zh6ZLmX8EKfWsJEkF4xI",
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*"],
