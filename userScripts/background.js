@@ -1,24 +1,3 @@
-// chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//     if (request.action === "fetchSuggestions") {
-//       const prompt = request.prompt;
-  
-//       fetch('https://gemini.api/endpoint', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': 'Bearer <YOUR_API_KEY>',
-//         },
-//         body: JSON.stringify({ prompt })
-//       })
-//       .then(response => response.json())
-//       .then(data => {
-//         // Send back the suggestions to the content script
-//         chrome.tabs.sendMessage(sender.tab.id, { action: "displaySuggestions", suggestions: data.suggestions });
-//       })
-//       .catch(error => console.error('Error fetching suggestions:', error));
-//     }
-//   });
-
 const manifest = chrome.runtime.getManifest();
 const apiKey = manifest.api_key;
 
@@ -91,4 +70,56 @@ chrome.storage.local.get("apiKey", (result) => {
       console.error('Error generating content:', error);
     }
   }
+  
+// Listen for messages from context.js
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    console.log("Received request to call Gemini API", request);
+  
+    if (request.action === "callGeminiAPI") {
+      console.log("Processing Gemini API call");
+  
+      // Replace this with your actual API key retrieval logic
+      const apiKey = request.apiKey;
+  
+      if (apiKey) {
+        // Initialize GoogleGenerativeAI with your API key
+        const genAI = new GoogleGenerativeAI(apiKey);
+  
+        // Define the model
+        const model = genAI.getGenerativeModel({
+          model: "gemini-1.5-flash",
+        });
+  
+        // Define the prompt
+        const prompt = `
+          Please analyze the following AI prompt: 
+          
+          Prompt: "Can you help me fix my code? 'Hello World'"
+          
+          and provide suggestions for improvement across multiple dimensions. Only return a JSON file with 3 different objects, 
+          each formatted as {"prompt": string, "summary": string}. Each object must contain an improved prompt and a summary 
+          of the prompt in less than 15 words, highlighting the difference between the original and improved prompts. 
+          The summary does not need to be grammatically perfect.
+        `;
+  
+        // Call the API and handle response
+        model.generateContent(prompt)
+          .then(async (result) => {
+            const text = await result.response.text();  // Await the result of .text()
+            console.log("Gemini API response:", text);
+            sendResponse({ success: true, data: text });
+          })
+          .catch((error) => {
+            console.error("Error generating content:", error);
+            sendResponse({ success: false, error });
+          });
+        
+        // Indicate that the response will be sent asynchronously
+        return true;
+      } else {
+        console.error("API key not provided");
+        sendResponse({ success: false, error: "API key not provided" });
+      }
+    }
+  });
   
