@@ -55,200 +55,174 @@
     ↓
   </button>
 
-<!-- Button 1 -->
-<div
-  class="extension-button"
-  style="
-    position: relative;
-    width: 650px;
-    border-radius: 30px;
-    background-color: #fff2d0;
-    cursor: pointer;
-    overflow: hidden;
-  "
->
-  <button
-    class="button-content"
-    style="
+  <style>
+    .button-content {
       padding: 10px 20px;
       background-color: #fff2d0;
       color: black;
-      border: none;
       border-radius: 30px;
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
+      transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    }
+  
+    .button-content:hover {
+      background-color: #fae2a8; /*f9e3ae*/
+    }
+  </style>
+  
+  <!-- Button 1 -->
+  <div
+    class="extension-button"
+    style="
+      position: relative;
+      width: 650px;
+      border-radius: 30px;
+      background-color: #fff2d0;
+      cursor: pointer;
+      overflow: hidden;
     "
   >
-    Button 1
-    <a
-      href="#"
-      class="expand-link"
-      style="color: #166f40; text-decoration: underline; font-weight: 300"
-      >Read more...</a
-    >
-  </button>
-  <!-- Expanded Content -->
-  <div
-    class="expanded-content"
-    style="display: none; padding: 10px; margin: 0px 10px;"
-  >
+    <button class="button-content">
+      Button 1
+      <a
+        href="#"
+        class="expand-link"
+        style="color: #166f40; text-decoration: underline; font-weight: 300"
+        >Read more...</a
+      >
+    </button>
+    <!-- Expanded Content -->
     <div
-      class="content"
-      style="color: black; max-height: 100px; overflow-y: auto;"
+      class="expanded-content"
+      style="display: none; padding: 10px; margin: 0px 10px;"
     >
+      <div
+        class="content"
+        style="color: black; max-height: 100px; overflow-y: auto;"
+      >
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
       Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
+      </div>
+      <a
+        href="#"
+        class="collapse-link"
+        style="
+          color: #166f40;
+          text-decoration: underline;
+          font-weight: 300;
+          display: block;
+          margin-top: 5px;
+          text-align: right; 
+          margin-right: 5px;
+        "
+      >
+        Read less...
+      </a>
     </div>
-    <a
-      href="#"
-      class="collapse-link"
-      style="
-        color: #166f40;
-        text-decoration: underline;
-        font-weight: 300;
-        display: block;
-        margin-top: 5px;
-        text-align: right; 
-        margin-right: 5px;
-      "
-    >
-      Read less...
-    </a>
   </div>
-</div>
-
 
   <!-- Button 2 -->
-<div
-class="extension-button"
-style="
-  position: relative;
-  width: 650px;
-  border-radius: 30px;
-  background-color: #fff2d0;
-  cursor: pointer;
-  overflow: hidden;
-"
->
-<button
-  class="button-content"
-  style="
-    padding: 10px 20px;
-    background-color: #fff2d0;
-    color: black;
-    border: none;
-    border-radius: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  "
->
-  Button 2
-  <a
-    href="#"
-    class="expand-link"
-    style="color: #166f40; text-decoration: underline; font-weight: 300"
-    >Read more...</a
-  >
-</button>
-<!-- Expanded Content -->
-<div
-  class="expanded-content"
-  style="display: none; padding: 10px; margin: 0px 10px;"
->
   <div
-    class="content"
-    style="color: black; max-height: 100px; overflow-y: auto;"
-  >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-    Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
-  </div>
-  <a
-    href="#"
-    class="collapse-link"
+    class="extension-button"
     style="
-      color: #166f40;
-      text-decoration: underline;
-      font-weight: 300;
-      display: block;
-      margin-top: 5px;
-      text-align: right; 
-      margin-right: 5px;
+      position: relative;
+      width: 650px;
+      border-radius: 30px;
+      background-color: #fff2d0;
+      cursor: pointer;
+      overflow: hidden;
     "
   >
-    Read less...
-  </a>
-</div>
-</div>
-
+    <button class="button-content">
+      Button 2
+      <a
+        href="#"
+        class="expand-link"
+        style="color: #166f40; text-decoration: underline; font-weight: 300"
+        >Read more...</a
+      >
+    </button>
+    <!-- Expanded Content -->
+    <div
+      class="expanded-content"
+      style="display: none; padding: 10px; margin: 0px 10px;"
+    >
+      <div
+        class="content"
+        style="color: black; max-height: 100px; overflow-y: auto;"
+      >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+      Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
+      </div>
+      <a
+        href="#"
+        class="collapse-link"
+        style="
+          color: #166f40;
+          text-decoration: underline;
+          font-weight: 300;
+          display: block;
+          margin-top: 5px;
+          text-align: right; 
+          margin-right: 5px;
+        "
+      >
+        Read less...
+      </a>
+    </div>
+  </div>
 
   <!-- Button 3 -->
-<div
-class="extension-button"
-style="
-  position: relative;
-  width: 650px;
-  border-radius: 30px;
-  background-color: #fff2d0;
-  cursor: pointer;
-  overflow: hidden;
-"
->
-<button
-  class="button-content"
-  style="
-    padding: 10px 20px;
-    background-color: #fff2d0;
-    color: black;
-    border: none;
-    border-radius: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  "
->
-  Button 3
-  <a
-    href="#"
-    class="expand-link"
-    style="color: #166f40; text-decoration: underline; font-weight: 300"
-    >Read more...</a
-  >
-</button>
-<!-- Expanded Content -->
-<div
-  class="expanded-content"
-  style="display: none; padding: 10px; margin: 0px 10px;"
->
   <div
-    class="content"
-    style="color: black; max-height: 100px; overflow-y: auto;"
-  >
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-    Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
-  </div>
-  <a
-    href="#"
-    class="collapse-link"
+    class="extension-button"
     style="
-      color: #166f40;
-      text-decoration: underline;
-      font-weight: 300;
-      display: block;
-      margin-top: 5px;
-      text-align: right; 
-      margin-right: 5px;
+      position: relative;
+      width: 650px;
+      border-radius: 30px;
+      background-color: #fff2d0;
+      cursor: pointer;
+      overflow: hidden;
     "
   >
-    Read less...
-  </a>
-</div>
-</div>
-</div>
+    <button class="button-content">
+      Button 3
+      <a
+        href="#"
+        class="expand-link"
+        style="color: #166f40; text-decoration: underline; font-weight: 300"
+        >Read more...</a
+      >
+    </button>
+    <!-- Expanded Content -->
+    <div
+      class="expanded-content"
+      style="display: none; padding: 10px; margin: 0px 10px;"
+    >
+      <div
+        class="content"
+        style="color: black; max-height: 100px; overflow-y: auto;"
+      >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+      Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
+      </div>
+      <a
+        href="#"
+        class="collapse-link"
+        style="
+          color: #166f40;
+          text-decoration: underline;
+          font-weight: 300;
+          display: block;
+          margin-top: 5px;
+          text-align: right; 
+          margin-right: 5px;
+        "
+      >
+        Read less...
+      </a>
+    </div>
+  </div>
