@@ -18,10 +18,18 @@ function checkUrlChange() {
 function initChatInputDetection() {
   const checkTextArea = setInterval(() => {
     // console.log("Looking for #prompt-textarea...");
-    const textArea = document.querySelector("#prompt-textarea");
+    const chatGptTextArea = document.querySelector("#prompt-textarea");
+    const perplexityTextArea1 = document.querySelector(
+      "textarea[placeholder='Ask follow-up']"
+    );
+    const perplexityTextArea2 = document.querySelector(
+      "textarea[placeholder='Ask anything...']"
+    );
 
-    if (textArea) {
+    if (chatGptTextArea || perplexityTextArea1 || perplexityTextArea2) {
       console.log("Text area detected!");
+
+      const textArea = chatGptTextArea || perplexityTextArea1 || perplexityTextArea2;
 
       // Use keydown event as a fallback
       textArea.addEventListener("keydown", function (event) {
@@ -36,13 +44,13 @@ function initChatInputDetection() {
           if (!userInput) {
             console.log("User input is empty. Skipping context collection.");
             return; // Skip if input is empty
-          } 
+          }
           console.log("User input after 2 seconds of inactivity:", userInput); // Log the input
-          
+
           // Collect the context (previous responses)
           const context = getContext();
           console.log("User input with context:", { userInput, context });
-          callGeminiAPI(userInput);
+          //   callGeminiAPI(userInput);
 
           // Inject the buttons after text input is detected
           injectButtons();
@@ -118,7 +126,9 @@ function injectButtons() {
   // console.log("Attempting to inject buttons...");
 
   // Check if buttons are already injected to avoid duplicates
-  const buttonContainer = document.getElementById("my-extension-button-container");
+  const buttonContainer = document.getElementById(
+    "my-extension-button-container"
+  );
 
   // Track if the show button has been created
   let showButtonExists = document.getElementById("show-button");
@@ -146,11 +156,25 @@ function injectButtons() {
       );
       if (buttonContainer) {
         // Select the target element where buttons should be injected above
-        const targetElement = document.querySelector(
+        const chatGPTTargetElement = document.querySelector(
           ".md\\:pt-0.dark\\:border-white\\/20.md\\:border-transparent.md\\:dark\\:border-transparent.w-full"
         );
 
-        if (targetElement) {
+        const perpleityTargetElement =
+          document.querySelector("span.grow.block");
+
+        const perpleityTargetElement2 =
+          document.querySelector("span.grow.block");
+
+        if (
+          chatGPTTargetElement ||
+          perpleityTargetElement ||
+          perpleityTargetElement2
+        ) {
+          const targetElement =
+            chatGPTTargetElement ||
+            perpleityTargetElement ||
+            perpleityTargetElement2;
           // console.log("Target element found, injecting buttons.");
 
           // Insert the button container above the target element
@@ -256,19 +280,18 @@ function injectButtons() {
 
 // Function to call your server's Gemini API proxy
 async function callGeminiAPI(promptText) {
-    try {
-      const response = await fetch("http://localhost:3000/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: promptText }),
-      });
-  
-      const data = await response.json();
-      console.log("Gemini API Response:", data.generatedText);
-    } catch (error) {
-      console.error("Error calling Gemini API:", error);
-    }
+  try {
+    const response = await fetch("http://localhost:3000/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: promptText }),
+    });
+
+    const data = await response.json();
+    console.log("Gemini API Response:", data.generatedText);
+  } catch (error) {
+    console.error("Error calling Gemini API:", error);
   }
-  
+}
