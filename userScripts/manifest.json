@@ -18,7 +18,7 @@
   "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*", "https://*.googleapis.com/*"],
   "web_accessible_resources": [
     {
-      "resources": ["buttons.html"],
+      "resources": ["buttons.html", "icons/upPersimmon.png"],
       "matches": ["https://chatgpt.com/*"]
     }
   ],
@@ -29,4 +29,5 @@
       "128": "icons/icons.png"
     }
   }
+  
 }
