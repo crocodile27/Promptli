@@ -34,7 +34,7 @@ icon.addEventListener('click', () => {
       },
       body: JSON.stringify({ text: text })
     })
-    .then(response => response.json())ø
+    .then(response => response.json())
     .then(data => {
       // Replace the original text with the corrected text.
       replaceText(data.correctedText);
