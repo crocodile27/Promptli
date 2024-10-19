@@ -34,6 +34,10 @@ function initChatInputDetection() {
                 // Start a new timer for 3 seconds after typing stops
                 typingTimer = setTimeout(function() {
                     const userInput = textArea.textContent.trim();  // Use textContent to capture inner text
+                    if (!userInput) {
+                        console.log('User input is empty. Skipping context collection.');
+                        return;  // Skip if input is empty
+                    }
                     console.log('User input after 2 seconds of inactivity:', userInput);  // Log the input
                     
                     // Collect the context (previous responses)
