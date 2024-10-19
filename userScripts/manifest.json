@@ -1,17 +1,25 @@
 {
-  "name": "User Scripts API Demo",
-  "version": "1.0",
   "manifest_version": 3,
-  "minimum_chrome_version": "120",
-  "description": "Uses the chrome.userScripts API to inject JavaScript into web pages.",
+  "name": "ChatGPT Prompt Enhancer",
+  "version": "1.0",
+  "description": "Suggests better prompts for ChatGPT using the Gemini API.",
+  "permissions": ["activeTab", "scripting", "storage"],
   "background": {
-    "service_worker": "sw.js"
+    "service_worker": "background.js"
   },
-  "permissions": ["storage", "userScripts"],
-  "host_permissions": ["https://example.com/*"],
-  "action": {},
-  "options_ui": {
-    "page": "options.html",
-    "open_in_tab": false
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*"],
+  "action": {
+    "default_icon": {
+      "16": "icons/icons.png",
+      "48": "icons/icons.png",
+      "128": "icons/icons.png"
+    }
   }
 }
