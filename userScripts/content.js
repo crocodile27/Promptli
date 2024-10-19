@@ -117,45 +117,154 @@ function injectButtons() {
     if (targetElement) {
         console.log('Target element found, injecting buttons.');
 
-        // Create a container for the buttons
-        const buttonContainer = document.createElement('div');
-        buttonContainer.style.display = 'flex';
-        buttonContainer.style.justifyContent = 'center';
-        buttonContainer.style.gap = '10px';  // Add some space between the buttons
-        buttonContainer.style.marginBottom = '10px';  // Add some margin below the buttons
-        
-        // Create button 1
-        const button1 = document.createElement('button');
-        button1.textContent = 'Button 1';
-        button1.style.padding = '10px 20px';
-        button1.style.backgroundColor = '#007bff';
-        button1.style.color = 'white';
-        button1.style.border = 'none';
-        button1.style.borderRadius = '5px';
-        button1.style.cursor = 'pointer';
-        button1.addEventListener('click', () => {
-            console.log('Button 1 clicked');
-        });
+// Create button container
+const buttonContainer = document.createElement('div');
+buttonContainer.style.position = 'relative'; // Add relative positioning for absolute elements inside
+buttonContainer.style.display = 'flex';
+buttonContainer.style.flexDirection = 'column';
+buttonContainer.style.alignItems = 'center'; // Center children horizontally
+buttonContainer.style.gap = '10px'; 
+buttonContainer.style.marginBottom = '20px';  
+buttonContainer.style.marginTop = '20px';  
+buttonContainer.style.backgroundColor = '#e98f41';
+buttonContainer.style.paddingTop = '10px';
+buttonContainer.style.paddingBottom = '10px';
+buttonContainer.style.width = '700px'; // Set width to control the size of the container
+buttonContainer.style.borderRadius = '10px';
+buttonContainer.style.marginLeft = 'auto'; // Center horizontally
+buttonContainer.style.marginRight = 'auto'; // Center horizontally
+buttonContainer.style.maxWidth = '90%'; // Allow responsiveness on smaller screens
 
-        // Create button 2
-        const button2 = document.createElement('button');
-        button2.textContent = 'Button 2';
-        button2.style.padding = '10px 20px';
-        button2.style.backgroundColor = '#28a745';
-        button2.style.color = 'white';
-        button2.style.border = 'none';
-        button2.style.borderRadius = '5px';
-        button2.style.cursor = 'pointer';
-        button2.addEventListener('click', () => {
-            console.log('Button 2 clicked');
-        });
+// Create close button
+const closeButton = document.createElement('button');
+closeButton.textContent = 'x';
+closeButton.style.position = 'absolute';
+closeButton.style.top = '5px';
+closeButton.style.right = '10px';
+closeButton.style.background = 'transparent';
+closeButton.style.border = 'none';
+closeButton.style.fontSize = '18px';
+closeButton.style.color = '#166f40';
+closeButton.style.cursor = 'pointer';
 
-        // Append buttons to the container
-        buttonContainer.appendChild(button1);
-        buttonContainer.appendChild(button2);
+// Event listener for closing the container
+closeButton.addEventListener('click', () => {
+    buttonContainer.style.display = 'none'; // Hide the container when close button is clicked
+});
 
-        // Insert the button container above the target element
-        targetElement.parentNode.insertBefore(buttonContainer, targetElement);
+// Append the close button to the button container
+buttonContainer.appendChild(closeButton);
+
+// Variable to keep track of the currently expanded button
+let expandedButton = null;
+
+// Function to create a button with a link
+const createButtonWithLink = (buttonText) => {
+    // Create button container
+    const button = document.createElement('div');
+    button.style.position = 'relative'; // Position for absolute elements inside
+    button.style.width = '650px'; 
+    button.style.borderRadius = '5px';
+    button.style.backgroundColor = '#fff2d0'; 
+    button.style.cursor = 'pointer';
+    button.style.overflow = 'hidden'; // Prevent content from overflowing
+
+    // Create button content
+    const buttonContent = document.createElement('button');
+    buttonContent.textContent = buttonText;
+    buttonContent.style.padding = '10px 20px';
+    buttonContent.style.backgroundColor = '#fff2d0'; 
+    buttonContent.style.color = 'black';
+    buttonContent.style.border = 'none';
+    buttonContent.style.borderRadius = '5px';
+    buttonContent.style.width = '100%'; // Full width of the parent div
+    buttonContent.style.cursor = 'pointer';
+    buttonContent.style.display = 'flex'; // Use flex to align the link properly
+    buttonContent.style.justifyContent = 'space-between'; // Space between the text and the link
+    buttonContent.style.alignItems = 'center'; // Align items vertically
+
+    // Create the expand link
+    const expandLink = document.createElement('a');
+    expandLink.textContent = 'Read more...';
+    expandLink.href = '#'; 
+    expandLink.style.color = '#166f40';
+    expandLink.style.textDecoration = 'underline';
+    expandLink.style.fontWeight = '300';
+
+    // Event listener for expand link
+    expandLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        if (expandedButton && expandedButton !== button) {
+            // Collapse the previously expanded button
+            expandedButton.style.height = 'auto'; // Reset height
+            const prevLink = expandedButton.querySelector('a');
+            prevLink.textContent = 'Read more...'; // Show the link again
+            prevLink.style.display = 'inline'; // Show the link again
+            expandedButton.querySelector('.header').remove(); // Remove the expanded header
+            expandedButton.querySelector('.content').remove(); // Remove the expanded content
+        }
+
+        // If the current button is already expanded, collapse it
+        if (button.style.height === '200px') {
+            button.style.height = 'auto'; // Collapse
+            expandLink.textContent = 'Read more...'; // Show the link again
+            button.querySelector('.header').remove(); // Remove the expanded header
+            button.querySelector('.content').remove(); // Remove the expanded content
+            expandedButton = null; // Reset the expanded button tracker
+        } else {
+            // Expand the current button
+            button.style.height = '200px'; // Double the height
+            expandLink.style.display = 'none'; // Hide the link
+
+            // Create header element
+            const header = document.createElement('span');
+            header.textContent = buttonText;
+            header.style.fontWeight = 'bold'; // Bold header
+            header.classList.add('header'); // Add class for easy access later
+            header.style.position = 'absolute'; // Position header absolutely
+            header.style.top = '10px'; // Position at the top
+            header.style.left = '10px'; // Left alignment
+            button.appendChild(header); // Add header to the button
+
+            // Create content div
+            const content = document.createElement('div');
+            content.textContent = 'hello hello'; // Set content text
+            content.classList.add('content'); // Add class for easy access later
+            // content.style.textAlign = 'center'; // Center the text
+            content.style.position = 'absolute'; // Position content absolutely
+            content.style.top = '50%'; // Center vertically
+            content.style.left = '50%'; // Center horizontally
+            content.style.transform = 'translate(-50%, -50%)'; // Center the content
+            button.appendChild(content); // Add content to the button
+            
+            expandedButton = button; // Set the expanded button tracker
+        }
+    });
+
+    // Append link to the button content
+    buttonContent.appendChild(expandLink);
+    button.appendChild(buttonContent); // Append button content to the button
+
+    return button; // Return the entire button div
+};
+
+// Create buttons with links
+const button1 = createButtonWithLink('Button 1');
+const button2 = createButtonWithLink('Button 2');
+const button3 = createButtonWithLink('Button 3');
+
+// Append buttons to the container
+buttonContainer.appendChild(button1);
+buttonContainer.appendChild(button2);
+buttonContainer.appendChild(button3);
+
+// Append the button container to the desired parent element (e.g., document.body)
+document.body.appendChild(buttonContainer);
+
+
+// Insert the button container above the target element
+targetElement.parentNode.insertBefore(buttonContainer, targetElement);
+
 
     } else {
         console.log('Target element not found');
