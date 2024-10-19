@@ -7,6 +7,7 @@
   "background": {
     "service_worker": "background.js"
   },
+  "api_key": "AIzaSyCLabv_mI9j3c9zh6ZLmX8EKfWsJEkF4xI",
   "content_scripts": [
     {
       "matches": ["https://chatgpt.com/*"],
@@ -14,7 +15,7 @@
       "css": ["styles.css"]
     }
   ],
-  "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*"],
+  "host_permissions": ["https://chatgpt.com/*", "https://gemini.api/*", "https://*.googleapis.com/*"],
   "web_accessible_resources": [
     {
       "resources": ["buttons.html"],
