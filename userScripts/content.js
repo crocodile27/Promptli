@@ -363,11 +363,34 @@ function injectPrompts(prompts) {
   
         // Replace expanded content with the prompt text
         contentElement.innerHTML = promptData.prompt;
+  
+        // Add event listener to populate the text input when a button is clicked
+        button.addEventListener("click", function () {
+          populateTextInput(promptData.prompt);
+        });
       }
     });
   
     // Reattach event listeners for expand/collapse after content injection
     attachExpandCollapseListeners();
+  }
+  
+  /**
+   * Function to populate the text input field with the selected button content.
+   */
+  function populateTextInput(text) {
+    const textInput = document.querySelector("#prompt-textarea");
+  
+    // Check if the text input exists
+    if (textInput) {
+        textInput.focus();
+        textInput.innerText = text;
+        // Set the content of the text input
+    //   textInput.focus(); // Optionally, focus on the input field
+      console.log("Text input populated with:", text);
+    } else {
+      console.error("Text input field not found.");
+    }
   }
   
   /**
@@ -379,6 +402,8 @@ function injectPrompts(prompts) {
     expandLinks.forEach((link) => {
       link.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent default link behavior
+        event.stopPropagation(); // Prevent event from bubbling up to the button
+        
         const parentButton = link.closest(".extension-button");
         const expandedContent = parentButton.querySelector(".expanded-content");
         const buttonContent = parentButton.querySelector(".button-content");
@@ -396,6 +421,8 @@ function injectPrompts(prompts) {
     collapseLinks.forEach((link) => {
       link.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent default link behavior
+        event.stopPropagation(); // Prevent event from bubbling up to the button
+  
         const parentContent = link.closest(".expanded-content");
         const parentButton = link.closest(".extension-button");
         const buttonContent = parentButton.querySelector(".button-content");
@@ -408,3 +435,5 @@ function injectPrompts(prompts) {
       });
     });
   }
+  
+  
