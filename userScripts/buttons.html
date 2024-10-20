@@ -76,6 +76,12 @@
     .expanded-content:hover {
       background-color: #fae2a8;
     }
+
+    .loading-dots span {
+      opacity: 0.2;
+      font-size: 16px;
+      transition: opacity 0.5s ease;
+    }
   </style>
   
   <!-- Button 1 -->
@@ -90,15 +96,18 @@
       overflow: hidden;
     "
   >
-    <button class="button-content">
-      Button 1
-      <a
-        href="#"
-        class="expand-link"
-        style="color: #166f40; text-decoration: underline; font-weight: 300"
-        >Read more...</a
-      >
-    </button>
+  <button class="button-content" id="button1">
+    <div class="loading-dots" style="display: flex; justify-content: center; align-items: center;">
+      <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+      <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+      <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+    </div>
+    <a
+      href="#"
+      class="expand-link"
+      style="color: #166f40; text-decoration: underline; font-weight: 300"
+    >Read more...</a>
+  </button>
     <!-- Expanded Content -->
     <div
       class="expanded-content"
@@ -108,8 +117,7 @@
         class="content"
         style="color: black; max-height: 100px; overflow-y: auto;"
       >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-      Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
+      Content will be loaded here...
       </div>
       <a
         href="#"
@@ -141,8 +149,12 @@
       overflow: hidden;
     "
   >
-    <button class="button-content">
-      Button 2
+    <button class="button-content" id="button2">
+      <div class="loading-dots" style="display: flex; justify-content: center; align-items: center;">
+        <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+        <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+        <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+      </div>
       <a
         href="#"
         class="expand-link"
@@ -159,8 +171,7 @@
         class="content"
         style="color: black; max-height: 100px; overflow-y: auto;"
       >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-      Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
+      Content will be loaded here...
       </div>
       <a
         href="#"
@@ -192,8 +203,12 @@
       overflow: hidden;
     "
   >
-    <button class="button-content">
-      Button 3
+    <button class="button-content" id="button3">
+      <div class="loading-dots" style="display: flex; justify-content: center; align-items: center;">
+        <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+        <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+        <img src="icons/icons.png" style="width: 20px; height: 20px; opacity: 0.2;">
+      </div>
       <a
         href="#"
         class="expand-link"
@@ -210,8 +225,7 @@
         class="content"
         style="color: black; max-height: 100px; overflow-y: auto;"
       >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum, tellus at pretium tristique, odio nunc eleifend arcu, nec porta turpis dolor eu elit. Maecenas a est semper, consectetur erat ac, tincidunt sapien. Duis cursus laoreet magna eget vestibulum. Suspendisse lobortis ex nec justo luctus commodo pretium eget neque. Fusce vitae suscipit quam. Sed quis convallis dolor. Etiam lobortis aliquet odio, et interdum odio euismod a. Morbi dui est, feugiat eget diam quis, fringilla eleifend justo. Suspendisse vel tempor orci, et posuere est. Donec sollicitudin feugiat libero. Quisque facilisis porttitor quam vel laoreet. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-      Nunc eget tincidunt tellus. Aenean id magna mollis, lacinia lorem sit amet, tincidunt neque. Aenean enim odio, lobortis id interdum porta, sodales eget lorem. Phasellus at commodo nunc, ac interdum libero. Aenean ante magna, luctus in ligula a, euismod luctus lacus. Sed finibus lectus id scelerisque vulputate. Cras sit amet tellus dui. Aenean placerat mauris justo, vitae faucibus est accumsan vel. Integer eget nibh consectetur, faucibus elit feugiat, vestibulum tellus. Integer vehicula augue eu feugiat molestie. Maecenas sed tortor semper, viverra turpis ut, semper mi. Integer et blandit arcu. Aliquam non neque ante. Dui
+      Content will be loaded here...
       </div>
       <a
         href="#"
@@ -230,3 +244,4 @@
       </a>
     </div>
   </div>
+</div>

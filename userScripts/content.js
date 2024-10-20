@@ -279,9 +279,64 @@ function injectButtons() {
     });
 }
 
-// Function to call your server's Gemini API proxy
+function showLoadingAnimation() {
+  const buttons = document.querySelectorAll(".extension-button");
+
+  buttons.forEach((button) => {
+    // Store original button content so we can restore it later
+    const buttonContent = button.querySelector(".button-content");
+    button.dataset.originalContent = buttonContent.innerHTML;
+
+    // Clear the current content and add loading animation with icons
+    buttonContent.innerHTML = `
+      <div class="loading-dots" style="display: flex; justify-content: center; align-items: center;">
+        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; margin-left: 10px; height: 20px; opacity: 0.2;">
+        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; margin-left: 10px; height: 20px; opacity: 0.2;">
+        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; margin-left: 10px; height: 20px; opacity: 0.2;">
+      </div>
+    `;
+
+    let dotIndex = 0;
+    const dotElements = buttonContent.querySelectorAll("img");
+
+    // Animate the icons one by one
+    const dotInterval = setInterval(() => {
+      dotElements.forEach((dot, i) => {
+        dot.style.opacity = i === dotIndex ? "1" : "0.2"; // Adjust opacity for fade effect
+      });
+      dotIndex = (dotIndex + 1) % dotElements.length;
+    }, 500); // Show each icon every 500ms
+
+    // Store interval ID to clear it later
+    button.dataset.dotInterval = dotInterval;
+  });
+}
+
+function hideLoadingAnimation() {
+  const buttons = document.querySelectorAll(".extension-button");
+
+  buttons.forEach((button) => {
+    const buttonContent = button.querySelector(".button-content");
+
+    // Restore the original content
+    if (button.dataset.originalContent) {
+      buttonContent.innerHTML = button.dataset.originalContent;
+    }
+
+    // Clear the interval for the dots animation
+    if (button.dataset.dotInterval) {
+      clearInterval(button.dataset.dotInterval);
+      delete button.dataset.dotInterval;
+    }
+  });
+}
+
 async function callGeminiAPI(promptText) {
   try {
+    console.log("Starting API call..."); // Log before showing loading animation
+    // Show loading animation before the API call
+    showLoadingAnimation();
+
     const response = await fetch("http://localhost:3000/generate", {
       method: "POST",
       headers: {
@@ -294,38 +349,33 @@ async function callGeminiAPI(promptText) {
     const data = await response.text();
     console.log("Gemini API Response (raw):", data);
 
-    // Since the response is stringified JSON, we need to parse it twice
     let parsedData;
     try {
-      // First parse to get the string version of the JSON
-      const firstParse = JSON.parse(data);
-      console.log("First Parse (string):", firstParse);
-
-      // Second parse to get the actual array of objects
-      parsedData = JSON.parse(firstParse);
+      const firstParse = JSON.parse(data); // First parse to get the string version of the JSON
+      parsedData = JSON.parse(firstParse); // Second parse to get the actual array of objects
     } catch (parseError) {
       console.error("Error parsing JSON:", parseError);
       return; // Stop if JSON parsing fails
     }
 
     console.log("Gemini API Parsed Response:", parsedData);
-    console.log("Type of Parsed Data:", typeof parsedData);
 
-    // Check if parsedData is an array
+    // Inject the parsed data into the buttons
     if (Array.isArray(parsedData)) {
-      console.log("Parsed data is an array. Proceeding to inject prompts.");
       injectPrompts(parsedData);
     } else {
-      console.error(
-        "Parsed data is not an array. Type of parsed data:",
-        typeof parsedData
-      );
-      console.log("Parsed data content:", parsedData);
+      console.error("Parsed data is not an array.");
     }
+
   } catch (error) {
     console.error("Error calling Gemini API:", error);
+  } finally {
+    console.log("Hiding loading animation..."); // Log before hiding loading animation
+    // Hide loading animation after the API call
+    hideLoadingAnimation();
   }
 }
+
 function injectPrompts(prompts) {
     const buttons = document.querySelectorAll(".extension-button");
   
