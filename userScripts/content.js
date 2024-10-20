@@ -1,5 +1,5 @@
 let typingTimer; // Timer identifier
-const typingInterval = 1500; // Time in milliseconds (2 seconds)
+const typingInterval = 1000; // Time in milliseconds (2 seconds)
 let lastUrl = window.location.href; // Track the current URL
 const manifest = chrome.runtime.getManifest();
 const apiKey = manifest.api_key;
@@ -17,7 +17,6 @@ function checkUrlChange() {
 // Function to detect the chat input
 function initChatInputDetection() {
   const checkTextArea = setInterval(() => {
-    // console.log("Looking for #prompt-textarea...");
     const chatGptTextArea = document.querySelector("#prompt-textarea");
     const perplexityTextArea1 = document.querySelector(
       "textarea[placeholder='Ask follow-up']"
@@ -32,12 +31,37 @@ function initChatInputDetection() {
       const textArea =
         chatGptTextArea || perplexityTextArea1 || perplexityTextArea2;
 
-      // Use keydown event as a fallback
+      // Use keydown event to detect Enter key
       textArea.addEventListener("keydown", function (event) {
         console.log("Keydown event fired");
 
         // Clear the previous timer
         clearTimeout(typingTimer);
+
+        function hideButtonContainerAndShowButton() {
+          const buttonContainer = document.getElementById("my-extension-button-container");
+          const showButton = document.getElementById("show-button");
+  
+          if (buttonContainer) {
+            buttonContainer.style.display = "none"; // Hide the container
+          }
+  
+          if (showButton) {
+            showButton.style.display = "block"; // Show the show button
+          }
+        }
+
+        // Check if the key pressed is Enter
+        if (event.key === "Enter") {
+          hideButtonContainerAndShowButton();
+        }
+
+        const sendButton = document.querySelector("[data-testid='send-button']");
+        if (sendButton) {
+          sendButton.addEventListener("click", function () {
+            hideButtonContainerAndShowButton();
+          });
+        }
 
         // Start a new timer for 3 seconds after typing stops
         typingTimer = setTimeout(function () {
@@ -290,9 +314,9 @@ function showLoadingAnimation() {
     // Clear the current content and add loading animation with icons
     buttonContent.innerHTML = `
       <div class="loading-dots" style="display: flex; justify-content: center; align-items: center;">
-        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; margin-left: 10px; height: 20px; opacity: 0.2;">
-        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; margin-left: 10px; height: 20px; opacity: 0.2;">
-        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; margin-left: 10px; height: 20px; opacity: 0.2;">
+        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; height: 20px; opacity: 0.2;">
+        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; height: 20px; opacity: 0.2;">
+        <img src="${chrome.runtime.getURL("./icons/icons.png")}" style="width: 20px; height: 20px; opacity: 0.2;">
       </div>
     `;
 
