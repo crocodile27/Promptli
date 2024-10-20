@@ -1,5 +1,5 @@
 let typingTimer; // Timer identifier
-const typingInterval = 2000; // Time in milliseconds (2 seconds)
+const typingInterval = 1500; // Time in milliseconds (2 seconds)
 let lastUrl = window.location.href; // Track the current URL
 const manifest = chrome.runtime.getManifest();
 const apiKey = manifest.api_key;
